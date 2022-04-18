@@ -1,0 +1,6 @@
+2022-04-18 13:41:10 [main] INFO  logging.Main : 55 - Starting Main using Java 1.8.0_202 on admins-MacBook-Pro-25.local with PID 4113 (/Users/vasanth/IdeaProjects/Logging_Test/target/classes started by vasanth in /Users/vasanth/IdeaProjects/Logging_Test)
+2022-04-18 13:41:10 [main] DEBUG logging.Main : 56 - Running with Spring Boot v2.4.0, Spring v5.3.1
+2022-04-18 13:41:10 [main] INFO  logging.Main : 660 - No active profile set, falling back to default profiles: default
+2022-04-18 13:41:16 [main] INFO  logging.Main : 61 - Started Main in 6.488 seconds (JVM running for 7.237)
+2022-04-18 13:41:23 [http-nio-8080-exec-2] DEBUG logging.controller.EmployeeController : 50 - Added student to DB
+2022-04-18 13:41:25 [http-nio-8080-exec-3] DEBUG logging.controller.EmployeeController : 30 - List of students displayed

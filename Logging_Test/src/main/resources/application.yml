@@ -1,0 +1,13 @@
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: ERROR
+    logging: DEBUG
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %class{100} : %L - "%msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{100} : %L - %msg%n'
+  file:
+    path: /Users/vasanth/IdeaProjects/Logging_Test/
+    name: ${logging.file.path}api.log
+
+
