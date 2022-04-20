@@ -1,6 +1,8 @@
 package com.Employee.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,14 +10,18 @@ import java.util.List;
 @Table(name = "Senior_Employee")
 public class SeniorEmployee {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", unique = true)
+    @Column(name = "id", unique = true)
     private int id;
-    @Column(name = "Name", length = 50)
+    @Column(name = "name", length = 50)
     private String name;
-    @Column(name = "Job_Role", length = 50)
+    @Column(name = "job_role", length = 50)
     private String job_role;
+    @Column(name = "salary")
+    private int salary;
+
 
     @OneToMany(
             mappedBy = "seniorEmployee",
@@ -24,13 +30,16 @@ public class SeniorEmployee {
     )
     private List<JuniorEmployee> juniorEmployeeList;
 
-    SeniorEmployee(){}
+    public SeniorEmployee() {
+    }
 
-    public SeniorEmployee(int id, String name, String job_role) {
+
+    public SeniorEmployee(int id, String name, String job_role, int salary) {
         super();
         this.id = id;
         this.name = name;
         this.job_role = job_role;
+        this.salary = salary;
     }
 
     public int getSe_id() {
@@ -55,5 +64,23 @@ public class SeniorEmployee {
 
     public void setJob_role(String job_role) {
         this.job_role = job_role;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+
+    }
+
+    @JsonManagedReference
+    public List<JuniorEmployee> getJuniorEmployeeList() {
+        return juniorEmployeeList;
+    }
+
+    public void setJuniorEmployeeList(List<JuniorEmployee> juniorEmployeeList) {
+        this.juniorEmployeeList = juniorEmployeeList;
     }
 }

@@ -2,6 +2,7 @@ package com.Employee.Advice;
 
 import com.Employee.CustomException.EmptyDBExceptionClass;
 import com.Employee.CustomException.EmptyFieldException;
+import com.Employee.CustomException.NoElementWithGivenId;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,19 +24,18 @@ public class ExceptionHandlerClass extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<?> handleNoSuchElementException(NoSuchElementException noSuchElementException)
-    {
-        return new ResponseEntity<String>("No Record with given id is in DB",HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> handleNoSuchElementException(NoSuchElementException noSuchElementException) {
+        return new ResponseEntity<String>("No Record with given id is in DB", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(EmptyFieldException.class)
-    public ResponseEntity<?> handleEmptyFieldException(EmptyFieldException emptyFieldException)
-    {
-        return new ResponseEntity<String>(emptyFieldException.getErrorMessage(),HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> handleEmptyFieldException(EmptyFieldException emptyFieldException) {
+        return new ResponseEntity<String>(emptyFieldException.getErrorMessage(), HttpStatus.BAD_REQUEST);
     }
+
 
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return new ResponseEntity<Object>("Please use proper request",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Object>("Please use proper request", HttpStatus.BAD_REQUEST);
     }
 }
