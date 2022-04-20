@@ -1,0 +1,13 @@
+package com.Employee.Repository;
+
+import com.Employee.Model.SeniorEmployee;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+public interface SeniorEmployeeRepository extends JpaRepository<SeniorEmployee, Integer> {
+
+    @Query(value = "SELECT * from senior_employee WHERE job_role=?1", nativeQuery = true)
+    public List<SeniorEmployee> getSeniorEmployeeByJobRole(String job_role);
+}
