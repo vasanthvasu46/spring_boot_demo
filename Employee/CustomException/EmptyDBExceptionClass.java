@@ -4,7 +4,12 @@ public class EmptyDBExceptionClass extends RuntimeException {
     private String errorCode;
     private String errorMessage;
 
-    EmptyDBExceptionClass(){}
+    public EmptyDBExceptionClass() {
+    }
+
+    public EmptyDBExceptionClass(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 
     public EmptyDBExceptionClass(String errorCode, String errorMessage) {
         super();

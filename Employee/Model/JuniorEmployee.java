@@ -1,6 +1,8 @@
 package com.Employee.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,7 +10,7 @@ import javax.persistence.*;
 public class JuniorEmployee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int je_id;
     @Column(name = "Name", length = 50)
@@ -21,16 +23,9 @@ public class JuniorEmployee {
     @JoinColumn(name = "seniorEmployee_id")
     private SeniorEmployee seniorEmployee;
 
-    public SeniorEmployee getSeniorEmployee() {
-        return seniorEmployee;
+
+    JuniorEmployee() {
     }
-
-    public void setSeniorEmployee(SeniorEmployee seniorEmployee) {
-        this.seniorEmployee = seniorEmployee;
-    }
-
-
-    JuniorEmployee(){}
 
 
     public int getJe_id() {
@@ -56,4 +51,15 @@ public class JuniorEmployee {
     public void setJob_role(String job_role) {
         this.job_role = job_role;
     }
+
+    @JsonBackReference
+    public SeniorEmployee getSeniorEmployee() {
+        return seniorEmployee;
+    }
+
+    public void setSeniorEmployee(SeniorEmployee seniorEmployee) {
+        this.seniorEmployee = seniorEmployee;
+    }
+
+
 }

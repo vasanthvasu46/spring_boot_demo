@@ -1,11 +1,12 @@
 package com.Employee.CustomException;
 
-public class EmptyFieldException extends RuntimeException{
+public class EmptyFieldException extends RuntimeException {
 
     private String errorCode;
     private String errorMessage;
 
-    public EmptyFieldException(){}
+    public EmptyFieldException() {
+    }
 
     public EmptyFieldException(String errorCode, String errorMessage) {
         super();
