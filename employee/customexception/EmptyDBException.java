@@ -1,17 +1,17 @@
 package com.employee.customexception;
 
-public class EmptyDBExceptionClass extends RuntimeException {
+public class EmptyDBException extends RuntimeException {
     private String errorCode;
     private String errorMessage;
 
-    public EmptyDBExceptionClass() {
+    public EmptyDBException() {
     }
 
-    public EmptyDBExceptionClass(String errorMessage) {
+    public EmptyDBException(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
-    public EmptyDBExceptionClass(String errorCode, String errorMessage) {
+    public EmptyDBException(String errorCode, String errorMessage) {
         super();
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
