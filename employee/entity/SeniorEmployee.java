@@ -2,6 +2,7 @@ package com.employee.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,14 +13,21 @@ public class SeniorEmployee {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
+    @ApiModelProperty(notes = "Senior employee ID (Auto generated . Don't want to enter the id)", example = "0", required = false)
     private int id;
+
     @Column(name = "name", length = 50)
+    @ApiModelProperty(notes = "Senior employee name", example = "Dravid", required = true)
     private String name;
+
     @Column(name = "job_role", length = 50)
+    @ApiModelProperty(notes = "Senior employee job role", example = "Java developer", required = true)
     private String jobRole;
+
     @Column(name = "salary")
+    @ApiModelProperty(notes = "Senior employee salary", example = "50000", required = true)
     private int salary;
 
 

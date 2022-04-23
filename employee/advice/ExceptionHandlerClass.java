@@ -1,6 +1,6 @@
 package com.employee.advice;
 
-import com.employee.customexception.EmptyDBExceptionClass;
+import com.employee.customexception.EmptyDBException;
 import com.employee.customexception.EmptyFieldException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,14 +16,14 @@ import java.util.NoSuchElementException;
 @ControllerAdvice
 public class ExceptionHandlerClass extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(EmptyDBExceptionClass.class)
-    public ResponseEntity<?> handleEmptyDbException(EmptyDBExceptionClass emptyDBException) {
+    @ExceptionHandler(EmptyDBException.class)
+    public ResponseEntity<?> handleEmptyDbException(EmptyDBException emptyDBException) {
         return new ResponseEntity<String>(emptyDBException.getErrorMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<?> handleNoSuchElementException(NoSuchElementException noSuchElementException) {
-        return new ResponseEntity<String>("No Record with given id is in DB", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<String>(noSuchElementException.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(EmptyFieldException.class)
