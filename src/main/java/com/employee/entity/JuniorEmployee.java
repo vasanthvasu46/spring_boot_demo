@@ -20,9 +20,8 @@ public class JuniorEmployee {
     @ApiModelProperty(notes = "Junior employee name", example = "Dhoni", required = true)
     private String name;
 
-    @ApiModelProperty(notes = "Junior employee job role", example = "Intern", required = true)
-    @Column(name = "jobRole", length = 50)
-    private String jobRole;
+    @Column(name = "location")
+    private String location;
 
 
     @ManyToOne
@@ -50,12 +49,12 @@ public class JuniorEmployee {
         this.name = name;
     }
 
-    public String getJobRole() {
-        return jobRole;
+    public String getLocation() {
+        return location;
     }
 
-    public void setJobRole(String jobRole) {
-        this.jobRole = jobRole;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @JsonBackReference

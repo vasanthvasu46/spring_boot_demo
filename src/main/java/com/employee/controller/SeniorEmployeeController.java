@@ -93,21 +93,10 @@ public class SeniorEmployeeController {
         return new ResponseEntity<String>("DELETED", HttpStatus.OK);
     }
 
-
-    //GET senior employee base on job role
-    @ApiOperation(value = "Get seniors based on the job", notes = "Returns all senior details from the database based on the job role given")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved"),
-            @ApiResponse(code = 404, message = "Not found - No record found in database")
-    })
-    @GetMapping("/senior/search/{jobRole}")
-    public ResponseEntity<List<SeniorEmployee>> getSeniorEmployeeByJobRole(@ApiParam(
-            name = "Job name",
-            type = "String",
-            value = "Job name of the employee",
-            example = "Java developer",
-            required = true) @PathVariable String jobRole) {
-        List<SeniorEmployee> employeeList = seniorEmployeeService.getSeniorEmployeeByJobRole(jobRole);
-        return new ResponseEntity<List<SeniorEmployee>>(employeeList, HttpStatus.OK);
+    @GetMapping("/senior/search/{location}")
+    public ResponseEntity<List<SeniorEmployee>> getSeniorByLocation(@PathVariable String location)
+    {
+        List<SeniorEmployee> seniorEmployeeList= seniorEmployeeService.getSeniorEmployeeByLocation(location);
+        return new ResponseEntity<List<SeniorEmployee>>(seniorEmployeeList, HttpStatus.OK);
     }
 }

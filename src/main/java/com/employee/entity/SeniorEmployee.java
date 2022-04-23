@@ -22,39 +22,33 @@ public class SeniorEmployee {
     @ApiModelProperty(notes = "Senior employee name", example = "Dravid", required = true)
     private String name;
 
-    @Column(name = "job_role", length = 50)
-    @ApiModelProperty(notes = "Senior employee job role", example = "Java developer", required = true)
-    private String jobRole;
-
     @Column(name = "salary")
     @ApiModelProperty(notes = "Senior employee salary", example = "50000", required = true)
     private int salary;
 
+    @Column(name = "location")
+    private String location;
 
-    @OneToMany(
-            mappedBy = "seniorEmployee",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+
+    @OneToMany(mappedBy = "seniorEmployee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<JuniorEmployee> juniorEmployeeList;
 
     public SeniorEmployee() {
     }
 
 
-    public SeniorEmployee(int id, String name, String jobRole, int salary) {
-        super();
+    public SeniorEmployee(int id, String name, int salary, String location) {
         this.id = id;
         this.name = name;
-        this.jobRole = jobRole;
         this.salary = salary;
+        this.location = location;
     }
 
-    public int getSe_id() {
+    public int getId() {
         return id;
     }
 
-    public void setSe_id(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -66,14 +60,6 @@ public class SeniorEmployee {
         this.name = name;
     }
 
-    public String getJob_role() {
-        return jobRole;
-    }
-
-    public void setJob_role(String jobRole) {
-        this.jobRole = jobRole;
-    }
-
     public int getSalary() {
         return salary;
     }
@@ -81,6 +67,14 @@ public class SeniorEmployee {
     public void setSalary(int salary) {
         this.salary = salary;
 
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @JsonManagedReference

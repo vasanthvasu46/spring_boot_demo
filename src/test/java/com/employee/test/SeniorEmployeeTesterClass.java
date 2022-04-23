@@ -30,21 +30,21 @@ public class SeniorEmployeeTesterClass {
 
     @Test
     public void getAllSeniorEmployeeTest() {
-        when(seniorEmployeeRepository.findAll()).thenReturn((Stream.of(new SeniorEmployee(1, "vasanth", "Javadeveloper", 40000)).collect(Collectors.toList())));
+        when(seniorEmployeeRepository.findAll()).thenReturn((Stream.of(new SeniorEmployee(1, "vasanth", 40000,"Coimbatore")).collect(Collectors.toList())));
         assertEquals(1, seniorEmployeeService.getAllSeniorEmployees().size());
     }
 
     @Test
     public void getSeniorEmployeeByIdTest()
     {
-        SeniorEmployee seniorEmployee = new SeniorEmployee(1, "vasanth", "Javadeveloper", 40000);
+        SeniorEmployee seniorEmployee = new SeniorEmployee(1, "vasanth", 40000,"Coimbatore");
         when(seniorEmployeeRepository.findById(1)).thenReturn(Optional.of(seniorEmployee));
         assertEquals(seniorEmployee,seniorEmployeeService.getSeniorEmployeeById(1));
     }
 
     @Test
     public void addSeniorEmployeeTest() {
-        SeniorEmployee seniorEmployee = new SeniorEmployee(1, "vasanth", "Javadeveloper", 40000);
+        SeniorEmployee seniorEmployee = new SeniorEmployee(1, "vasanth", 40000,"Coimbatore");
         when(seniorEmployeeRepository.save(seniorEmployee)).thenReturn(seniorEmployee);
         assertEquals(seniorEmployee, seniorEmployeeService.addSeniorEmployee(seniorEmployee));
 
@@ -52,17 +52,19 @@ public class SeniorEmployeeTesterClass {
 
     @Test
     public void deleteSeniorEmployeeByIdTest() {
-        SeniorEmployee seniorEmployee = new SeniorEmployee(1, "vasanth", "Javadeveloper", 40000);
+        SeniorEmployee seniorEmployee = new SeniorEmployee(1, "vasanth", 40000,"Coimbatore");
         when(seniorEmployeeRepository.findById(1)).thenReturn(Optional.of(seniorEmployee));
         seniorEmployeeService.deleteSeniorEmployeeById(1);
         verify(seniorEmployeeRepository, times(1)).delete(seniorEmployee);
     }
 
     @Test
-    public void getSeniorEmployeeByJobRoleTest() {
-
-        when(seniorEmployeeRepository.getSeniorEmployeeByJobRole("Javadeveloper")).thenReturn(Stream.of(new SeniorEmployee(1, "vasanth", "Javadeveloper", 40000)).collect(Collectors.toList()));
-
-        assertEquals(1, seniorEmployeeService.getSeniorEmployeeByJobRole("Javadeveloper").size());
+    public void getSeniorByLocationTest()
+    {
+        when(seniorEmployeeRepository.getSeniorEmployeeByLocation("Coimbatore"))
+                .thenReturn(Stream.of(new SeniorEmployee(1, "vasanth", 40000,"Coimbatore"),
+                        new SeniorEmployee(2, "mohith", 40000,"Coimbatore")).collect(Collectors.toList()));
+        assertEquals(2,seniorEmployeeService.getSeniorEmployeeByLocation("Coimbatore").size());
     }
+
 }

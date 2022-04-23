@@ -14,8 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -37,7 +35,7 @@ public class JuniorEmployeeTesterClass {
         JuniorEmployee je=new JuniorEmployee();
         je.setId(1);
         je.setName("vasanth");
-        je.setJobRole("Intern");
+
         juniorEmployeeList.add(je);
         when(juniorEmployeeRepository.findBySeniorEmployeeId(1))
                 .thenReturn(juniorEmployeeList);
@@ -51,7 +49,7 @@ public class JuniorEmployeeTesterClass {
         JuniorEmployee je=new JuniorEmployee();
         je.setId(1);
         je.setName("vasanth");
-        je.setJobRole("Intern");
+
         when(juniorEmployeeRepository.save(je)).thenReturn(je);
         assertEquals(je,juniorEmployeeService.addJuniorEmployee(je));
     }
@@ -62,7 +60,6 @@ public class JuniorEmployeeTesterClass {
         JuniorEmployee je=new JuniorEmployee();
         je.setId(1);
         je.setName("vasanth");
-        je.setJobRole("Intern");
         when(juniorEmployeeRepository.findById(1)).thenReturn(Optional.of(je));
         juniorEmployeeService.deleteJuniorEmployeeById(1);
         verify(juniorEmployeeRepository,times(1)).delete(je);
@@ -75,11 +72,11 @@ public class JuniorEmployeeTesterClass {
         JuniorEmployee je=new JuniorEmployee();
         je.setId(1);
         je.setName("vasanth");
-        je.setJobRole("Intern");
+
         JuniorEmployee je1=new JuniorEmployee();
         je1.setId(2);
         je1.setName("mohith");
-        je1.setJobRole("Intern");
+
         juniorEmployeeList.add(je);
         juniorEmployeeList.add(je1);
         when(juniorEmployeeRepository.findAll()).thenReturn(juniorEmployeeList);

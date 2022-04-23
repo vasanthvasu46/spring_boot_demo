@@ -46,17 +46,18 @@ public class SeniorEmployeeService {
     }
 
     public SeniorEmployee addSeniorEmployee(SeniorEmployee seniorEmployee) {
-        if (seniorEmployee.getName().isEmpty() || seniorEmployee.getName().length() == 0) {
+        if (seniorEmployee.getName().isEmpty()) {
             log.error("Exception in addSeniorEmployee() method");
             throw new EmptyFieldException("602", "Name field is empty.");
         }
-        if (seniorEmployee.getJob_role().isEmpty() || seniorEmployee.getJob_role().length() == 0) {
+        if(seniorEmployee.getLocation().isEmpty())
+        {
             log.error("Exception in addSeniorEmployee() method");
-            throw new EmptyFieldException("603", "Job role field is empty");
+            throw new EmptyFieldException("602", "Location field is empty");
         }
         if (seniorEmployee.getSalary() == 0) {
             log.error("Exception in addSeniorEmployee() method");
-            throw new EmptyFieldException("603", "Salary field is empty");
+            throw new EmptyFieldException("602", "Salary field is empty");
         }
         seniorEmployeeRepository.save(seniorEmployee);
         return seniorEmployee;
@@ -75,12 +76,16 @@ public class SeniorEmployeeService {
 
     }
 
-    public List<SeniorEmployee> getSeniorEmployeeByJobRole(String job_role) {
-        List<SeniorEmployee> employeeList = new ArrayList<>();
-        seniorEmployeeRepository.getSeniorEmployeeByJobRole(job_role).forEach(employeeList::add);
-        if (employeeList.isEmpty()) {
-            throw new NoSuchElementException("No employee found with given job role.");
+    public List<SeniorEmployee> getSeniorEmployeeByLocation(String location)
+    {
+        List<SeniorEmployee> seniorEmployeeList=new ArrayList<>();
+        seniorEmployeeRepository.getSeniorEmployeeByLocation(location)
+                .forEach(seniorEmployeeList::add);
+        if(seniorEmployeeList.isEmpty())
+        {
+            throw new NoSuchElementException("No resource found with given location");
         }
-        return employeeList;
+        return seniorEmployeeList;
     }
+
 }

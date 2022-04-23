@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface SeniorEmployeeRepository extends JpaRepository<SeniorEmployee, Integer> {
 
-    @Query(value = "SELECT * from senior_employee WHERE job_role=?1", nativeQuery = true)
-    public List<SeniorEmployee> getSeniorEmployeeByJobRole(String jobRole);
+    @Query(value = "SELECT * from senior_employee WHERE location=?1", nativeQuery = true)
+    public List<SeniorEmployee> getSeniorEmployeeByLocation(String location);
 }

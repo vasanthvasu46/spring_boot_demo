@@ -29,7 +29,7 @@ public class JuniorEmployeeService {
         return juniorEmployeesList;
     }
 
-    /*public JuniorEmployee getJuniorEmployeeUnderSeniorById(int juniorId) {
+    public JuniorEmployee getJuniorEmployeeById(int juniorId) {
         Optional<JuniorEmployee> juniorEmployee = juniorEmployeeRepository.findById(juniorId);
         if (!juniorEmployee.isPresent()) {
             throw new NoSuchElementException("No Resource found with given id : " + juniorId);
@@ -37,15 +37,16 @@ public class JuniorEmployeeService {
 
         JuniorEmployee junior = juniorEmployee.get();
         return junior;
-    }*/
+    }
 
     public JuniorEmployee addJuniorEmployee(JuniorEmployee juniorEmployee) {
 
         if (juniorEmployee.getName().isEmpty()) {
             throw new EmptyFieldException("602", "Name field is empty.");
         }
-        if (juniorEmployee.getJobRole().isEmpty()) {
-            throw new EmptyFieldException("603", "Job role field is empty");
+        if(juniorEmployee.getLocation().isEmpty())
+        {
+            throw new EmptyFieldException("602","Location field is empty");
         }
         juniorEmployeeRepository.save(juniorEmployee);
         return juniorEmployee;
@@ -79,5 +80,16 @@ public class JuniorEmployeeService {
 
         JuniorEmployee junior = juniorEmployee.get();
         return junior;
+    }
+
+    public List<JuniorEmployee> getJuniorEmployeeByLocation(String location)
+    {
+        List<JuniorEmployee> juniorEmployeeList=new ArrayList<>();
+        juniorEmployeeList.addAll(juniorEmployeeRepository.getJuniorEmployeeByLocation(location));
+        if(juniorEmployeeList.isEmpty())
+        {
+            throw new NoSuchElementException("No resource found with given location");
+        }
+        return juniorEmployeeList;
     }
 }

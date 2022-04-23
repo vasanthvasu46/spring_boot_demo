@@ -36,7 +36,7 @@ public class JuniorEmployeeController {
     }
 
     //GET junior employee by ID
-    /*@ApiOperation(value = "Get a junior from database under a senior", notes = "Returns a junior details from the database who is under a senior")
+    @ApiOperation(value = "Get a junior from database under a senior", notes = "Returns a junior details from the database who is under a senior")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved"),
             @ApiResponse(code = 404, message = "Not found - No record found in database")
@@ -48,9 +48,9 @@ public class JuniorEmployeeController {
             value = "Junior employee ID",
             example = "1",
             required = true) @PathVariable int juniorId) {
-        JuniorEmployee juniorEmployee = juniorEmployeeService.getByJuniorId(juniorId);
+        JuniorEmployee juniorEmployee = juniorEmployeeService.getJuniorEmployeeById(juniorId);
         return new ResponseEntity<JuniorEmployee>(juniorEmployee, HttpStatus.ACCEPTED);
-    }*/
+    }
 
     //ADD junior employee to a senior
     @ApiOperation(value = "Add a junior to a senior", notes = "Add a junior to a senior in database")
@@ -66,7 +66,7 @@ public class JuniorEmployeeController {
                                                                     value = "Senior employee ID",
                                                                     example = "1",
                                                                     required = true) @PathVariable int seniorId) {
-        juniorEmployee.setSeniorEmployee(new SeniorEmployee(seniorId, "", "", 0));
+        juniorEmployee.setSeniorEmployee(new SeniorEmployee(seniorId, "", 0,""));
         juniorEmployeeService.addJuniorEmployee(juniorEmployee);
         return new ResponseEntity<JuniorEmployee>(juniorEmployee, HttpStatus.CREATED);
     }
@@ -85,7 +85,7 @@ public class JuniorEmployeeController {
             value = "Senior employee ID",
             example = "1",
             required = true) @PathVariable int seniorId) {
-        juniorEmployee.setSeniorEmployee(new SeniorEmployee(seniorId, "", "", 0));
+        juniorEmployee.setSeniorEmployee(new SeniorEmployee(seniorId, "", 0,""));
         juniorEmployeeService.addJuniorEmployee(juniorEmployee);
         return new ResponseEntity<JuniorEmployee>(juniorEmployee, HttpStatus.OK);
     }
@@ -138,7 +138,7 @@ public class JuniorEmployeeController {
             value = "Junior employee ID",
             example = "1",
             required = true)@PathVariable int juniorId) {
-        JuniorEmployee juniorEmployee = juniorEmployeeService.getByJuniorId(juniorId);
+        JuniorEmployee juniorEmployee = juniorEmployeeService.getJuniorEmployeeById(juniorId);
         return new ResponseEntity<JuniorEmployee>(juniorEmployee, HttpStatus.ACCEPTED);
     }
 
@@ -158,5 +158,13 @@ public class JuniorEmployeeController {
             required = true)@PathVariable int juniorId) {
         juniorEmployeeService.deleteJuniorEmployeeById(juniorId);
         return new ResponseEntity<JuniorEmployee>(HttpStatus.OK);
+    }
+
+    @GetMapping("/junior/search/{location}")
+    public ResponseEntity<List<JuniorEmployee>> getJuniorByLocation(@PathVariable String location)
+    {
+        List<JuniorEmployee> juniorEmployeeList= juniorEmployeeService.
+        getJuniorEmployeeByLocation(location);
+        return new ResponseEntity<List<JuniorEmployee>>(juniorEmployeeList, HttpStatus.OK);
     }
 }
