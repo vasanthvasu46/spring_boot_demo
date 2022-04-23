@@ -31,12 +31,12 @@ public class JuniorEmployeeController {
     @GetMapping("/senior/{seniorId}/junior")
     public ResponseEntity<List<JuniorEmployee>> getAllJuniorEmployees(@PathVariable int seniorId) {
         List<JuniorEmployee> juniorEmployeeList = new ArrayList<>();
-        juniorEmployeeService.getAllJuniorEmployees(seniorId).forEach(juniorEmployeeList::add);
+        juniorEmployeeService.getJuniorEmployeesBySeniorID(seniorId).forEach(juniorEmployeeList::add);
         return new ResponseEntity<List<JuniorEmployee>>(juniorEmployeeList, HttpStatus.OK);
     }
 
     //GET junior employee by ID
-    @ApiOperation(value = "Get a junior from database under a senior", notes = "Returns a junior details from the database who is under a senior")
+    /*@ApiOperation(value = "Get a junior from database under a senior", notes = "Returns a junior details from the database who is under a senior")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved"),
             @ApiResponse(code = 404, message = "Not found - No record found in database")
@@ -48,9 +48,9 @@ public class JuniorEmployeeController {
             value = "Junior employee ID",
             example = "1",
             required = true) @PathVariable int juniorId) {
-        JuniorEmployee juniorEmployee = juniorEmployeeService.getJuniorEmployeeById(juniorId);
+        JuniorEmployee juniorEmployee = juniorEmployeeService.getByJuniorId(juniorId);
         return new ResponseEntity<JuniorEmployee>(juniorEmployee, HttpStatus.ACCEPTED);
-    }
+    }*/
 
     //ADD junior employee to a senior
     @ApiOperation(value = "Add a junior to a senior", notes = "Add a junior to a senior in database")
@@ -138,7 +138,7 @@ public class JuniorEmployeeController {
             value = "Junior employee ID",
             example = "1",
             required = true)@PathVariable int juniorId) {
-        JuniorEmployee juniorEmployee = juniorEmployeeService.getJuniorEmployeeById(juniorId);
+        JuniorEmployee juniorEmployee = juniorEmployeeService.getByJuniorId(juniorId);
         return new ResponseEntity<JuniorEmployee>(juniorEmployee, HttpStatus.ACCEPTED);
     }
 
