@@ -14,6 +14,11 @@ public class EmptyFieldException extends RuntimeException {
         this.errorMessage = errorMessage;
     }
 
+    public EmptyFieldException(String errorMessage) {
+        super();
+        this.errorMessage = errorMessage;
+    }
+
     public String getErrorCode() {
         return errorCode;
     }
