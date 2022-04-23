@@ -1,6 +1,6 @@
 package com.employee.service;
 
-import com.employee.customexception.EmptyDBExceptionClass;
+import com.employee.customexception.EmptyDBException;
 import com.employee.customexception.EmptyFieldException;
 import com.employee.entity.JuniorEmployee;
 import com.employee.repository.JuniorEmployeeRepository;
@@ -23,7 +23,7 @@ public class JuniorEmployeeService {
         juniorEmployeeRepository.findBySeniorEmployeeId(seniorId).forEach(juniorEmployeesList::add);
 
         if (juniorEmployeesList.isEmpty()) {
-            throw new EmptyDBExceptionClass("601", "No records found in DB");
+            throw new EmptyDBException("601", "No records found in DB");
         }
 
         return juniorEmployeesList;
@@ -66,7 +66,7 @@ public class JuniorEmployeeService {
         juniorEmployeeRepository.findAll().forEach(juniorEmployeesList::add);
 
         if (juniorEmployeesList.isEmpty()) {
-            throw new EmptyDBExceptionClass("601", "No records round in DB");
+            throw new EmptyDBException("601", "No records round in DB");
         }
         return juniorEmployeesList;
     }

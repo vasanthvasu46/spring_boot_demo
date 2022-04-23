@@ -1,11 +1,15 @@
 package com.employee.aop;
 
 
-import com.employee.customexception.EmptyDBExceptionClass;
+import com.employee.customexception.EmptyDBException;
 import com.employee.customexception.EmptyFieldException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -34,23 +38,23 @@ public class AspectConfig {
             Object obj = joinPoint.proceed();
             return obj;
         } catch (NoSuchElementException e) {
-            log.info("Exception while running: {}", joinPoint);
-            log.info("Exception : {}", e.getMessage());
-            throw new NoSuchElementException();
-        } catch (EmptyDBExceptionClass e) {
-            log.info("Exception Status Code : {}", e.getErrorCode());
-            log.info("Exception Message : {}", e.getErrorMessage());
-            throw new EmptyDBExceptionClass("No records found in DB");
+            log.error("Exception while running: {}", joinPoint);
+            log.error("Exception : {}", e.getMessage());
+            throw new NoSuchElementException(e.getMessage());
+        } catch (EmptyDBException e) {
+            log.error("Exception Status Code : {}", e.getErrorCode());
+            log.error("Exception Message : {}", e.getErrorMessage());
+            throw new EmptyDBException(e.getErrorMessage());
         } catch (EmptyFieldException e) {
-            log.info("Exception Status Code : {}", e.getErrorCode());
-            log.info("Exception Message : {}", e.getErrorMessage());
-            throw new EmptyFieldException();
+            log.error("Exception Status Code : {}", e.getErrorCode());
+            log.error("Exception Message : {}", e.getErrorMessage());
+            throw new EmptyFieldException(e.getErrorMessage());
         }
 
     }
 
     @AfterThrowing(value = "execution(* com.employee.controller.*.*(..))", throwing = "ex")
-    public void logAfterThrowing(JoinPoint joinPoint, Exception ex) {
+    public void logAfterThrowing(JoinPoint joinPoint) {
         log.info("After throwing exception in method: {}", joinPoint);
     }
 
