@@ -18,7 +18,7 @@ public class JuniorEmployeeService {
     @Autowired
     private JuniorEmployeeRepository juniorEmployeeRepository;
 
-    public List<JuniorEmployee> getAllJuniorEmployees(int seniorId) {
+    public List<JuniorEmployee> getJuniorEmployeesBySeniorID(int seniorId) {
         List<JuniorEmployee> juniorEmployeesList = new ArrayList<>();
         juniorEmployeeRepository.findBySeniorEmployeeId(seniorId).forEach(juniorEmployeesList::add);
 
@@ -29,7 +29,7 @@ public class JuniorEmployeeService {
         return juniorEmployeesList;
     }
 
-    public JuniorEmployee getJuniorEmployeeById(int juniorId) {
+    /*public JuniorEmployee getJuniorEmployeeUnderSeniorById(int juniorId) {
         Optional<JuniorEmployee> juniorEmployee = juniorEmployeeRepository.findById(juniorId);
         if (!juniorEmployee.isPresent()) {
             throw new NoSuchElementException("No Resource found with given id : " + juniorId);
@@ -37,14 +37,14 @@ public class JuniorEmployeeService {
 
         JuniorEmployee junior = juniorEmployee.get();
         return junior;
-    }
+    }*/
 
     public JuniorEmployee addJuniorEmployee(JuniorEmployee juniorEmployee) {
 
         if (juniorEmployee.getName().isEmpty()) {
             throw new EmptyFieldException("602", "Name field is empty.");
         }
-        if (juniorEmployee.getJob_role().isEmpty()) {
+        if (juniorEmployee.getJobRole().isEmpty()) {
             throw new EmptyFieldException("603", "Job role field is empty");
         }
         juniorEmployeeRepository.save(juniorEmployee);
