@@ -18,6 +18,17 @@ public class JuniorEmployeeService {
     @Autowired
     private JuniorEmployeeRepository juniorEmployeeRepository;
 
+
+    public List<JuniorEmployee> getAllJunior() {
+        List<JuniorEmployee> juniorEmployeesList = new ArrayList<>();
+        juniorEmployeeRepository.findAll().forEach(juniorEmployeesList::add);
+
+        if (juniorEmployeesList.isEmpty()) {
+            throw new EmptyDBException("601", "No records round in DB");
+        }
+        return juniorEmployeesList;
+    }
+
     public List<JuniorEmployee> getJuniorEmployeesBySeniorID(int seniorId) {
         List<JuniorEmployee> juniorEmployeesList = new ArrayList<>();
         juniorEmployeeRepository.findBySeniorEmployeeId(seniorId).forEach(juniorEmployeesList::add);
@@ -44,9 +55,8 @@ public class JuniorEmployeeService {
         if (juniorEmployee.getName().isEmpty()) {
             throw new EmptyFieldException("602", "Name field is empty.");
         }
-        if(juniorEmployee.getLocation().isEmpty())
-        {
-            throw new EmptyFieldException("602","Location field is empty");
+        if (juniorEmployee.getLocation().isEmpty()) {
+            throw new EmptyFieldException("602", "Location field is empty");
         }
         juniorEmployeeRepository.save(juniorEmployee);
         return juniorEmployee;
@@ -62,32 +72,11 @@ public class JuniorEmployeeService {
         juniorEmployeeRepository.delete(junior);
     }
 
-    public List<JuniorEmployee> getAllJunior() {
-        List<JuniorEmployee> juniorEmployeesList = new ArrayList<>();
-        juniorEmployeeRepository.findAll().forEach(juniorEmployeesList::add);
 
-        if (juniorEmployeesList.isEmpty()) {
-            throw new EmptyDBException("601", "No records round in DB");
-        }
-        return juniorEmployeesList;
-    }
-
-    public JuniorEmployee getByJuniorId(int juniorId) {
-        Optional<JuniorEmployee> juniorEmployee = juniorEmployeeRepository.findById(juniorId);
-        if (!juniorEmployee.isPresent()) {
-            throw new NoSuchElementException("No Resource found with given id : " + juniorId);
-        }
-
-        JuniorEmployee junior = juniorEmployee.get();
-        return junior;
-    }
-
-    public List<JuniorEmployee> getJuniorEmployeeByLocation(String location)
-    {
-        List<JuniorEmployee> juniorEmployeeList=new ArrayList<>();
+    public List<JuniorEmployee> getJuniorEmployeeByLocation(String location) {
+        List<JuniorEmployee> juniorEmployeeList = new ArrayList<>();
         juniorEmployeeList.addAll(juniorEmployeeRepository.getJuniorEmployeeByLocation(location));
-        if(juniorEmployeeList.isEmpty())
-        {
+        if (juniorEmployeeList.isEmpty()) {
             throw new NoSuchElementException("No resource found with given location");
         }
         return juniorEmployeeList;

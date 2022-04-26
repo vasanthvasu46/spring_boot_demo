@@ -35,11 +35,11 @@ public class SeniorEmployeeService {
         return seniorEmployeesList;
     }
 
-    public SeniorEmployee getSeniorEmployeeById(int se_id) {
-        Optional<SeniorEmployee> option = seniorEmployeeRepository.findById(se_id);
+    public SeniorEmployee getSeniorEmployeeById(int seniorId) {
+        Optional<SeniorEmployee> option = seniorEmployeeRepository.findById(seniorId);
         if (!option.isPresent()) {
             log.error("Exception in getSeniorEmployeeById() method");
-            throw new NoSuchElementException("No Resource found with given id");
+            throw new NoSuchElementException("No Resource found with given id :" + seniorId);
         }
         SeniorEmployee seniorEmployee = option.get();
         return seniorEmployee;
@@ -50,8 +50,7 @@ public class SeniorEmployeeService {
             log.error("Exception in addSeniorEmployee() method");
             throw new EmptyFieldException("602", "Name field is empty.");
         }
-        if(seniorEmployee.getLocation().isEmpty())
-        {
+        if (seniorEmployee.getLocation().isEmpty()) {
             log.error("Exception in addSeniorEmployee() method");
             throw new EmptyFieldException("602", "Location field is empty");
         }
@@ -64,9 +63,9 @@ public class SeniorEmployeeService {
     }
 
 
-    public void deleteSeniorEmployeeById(int se_id) {
+    public void deleteSeniorEmployeeById(int seniorId) {
 
-        Optional<SeniorEmployee> option = seniorEmployeeRepository.findById(se_id);
+        Optional<SeniorEmployee> option = seniorEmployeeRepository.findById(seniorId);
         if (!option.isPresent()) {
             log.error("Exception in deleteSeniorEmployeeById() method");
             throw new NoSuchElementException("No Resource found with given id");
@@ -76,13 +75,10 @@ public class SeniorEmployeeService {
 
     }
 
-    public List<SeniorEmployee> getSeniorEmployeeByLocation(String location)
-    {
-        List<SeniorEmployee> seniorEmployeeList=new ArrayList<>();
-        seniorEmployeeRepository.getSeniorEmployeeByLocation(location)
-                .forEach(seniorEmployeeList::add);
-        if(seniorEmployeeList.isEmpty())
-        {
+    public List<SeniorEmployee> getSeniorEmployeeByLocation(String location) {
+        List<SeniorEmployee> seniorEmployeeList = new ArrayList<>();
+        seniorEmployeeRepository.getSeniorEmployeeByLocation(location).forEach(seniorEmployeeList::add);
+        if (seniorEmployeeList.isEmpty()) {
             throw new NoSuchElementException("No resource found with given location");
         }
         return seniorEmployeeList;
