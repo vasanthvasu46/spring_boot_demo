@@ -1,5 +1,7 @@
 package com.employee.customexception;
 
+import com.sun.xml.internal.ws.api.model.CheckedException;
+
 public class EmptyDBException extends RuntimeException {
     private String errorCode;
     private String errorMessage;

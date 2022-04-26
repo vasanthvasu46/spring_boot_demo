@@ -22,10 +22,7 @@ public class SeniorEmployeeController {
 
     //GET All seniors
     @ApiOperation(value = "Get all seniors from database", notes = "Returns all seniors details from the database")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved"),
-            @ApiResponse(code = 404, message = "Not found - No record found in database")
-    })
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieved"), @ApiResponse(code = 404, message = "Not found - No record found in database")})
     @GetMapping("/senior")
     public ResponseEntity<List<SeniorEmployee>> getAllSeniorEmployees() {
         List<SeniorEmployee> seniorEmployeeList = seniorEmployeeService.getAllSeniorEmployees();
@@ -34,17 +31,9 @@ public class SeniorEmployeeController {
 
     //GET senior employee by ID
     @ApiOperation(value = "Get a senior from database", notes = "Returns a senior details from the database")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved"),
-            @ApiResponse(code = 404, message = "Not found - No record found in database")
-    })
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieved"), @ApiResponse(code = 404, message = "Not found - No record found in database")})
     @GetMapping("/senior/{seniorId}")
-    public ResponseEntity<SeniorEmployee> getSeniorEmployeeById(@ApiParam(
-            name = "ID",
-            type = "Integer",
-            value = "Senior Employee ID",
-            example = "1",
-            required = true) @PathVariable int seniorId) {
+    public ResponseEntity<SeniorEmployee> getSeniorEmployeeById(@PathVariable int seniorId) {
         SeniorEmployee seniorEmployee = seniorEmployeeService.getSeniorEmployeeById(seniorId);
         return new ResponseEntity<SeniorEmployee>(seniorEmployee, HttpStatus.OK);
     }
@@ -52,23 +41,17 @@ public class SeniorEmployeeController {
 
     //ADD senior employee
     @ApiOperation(value = "Add a senior to database", notes = "Add a senior to database")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved"),
-            @ApiResponse(code = 404, message = "Not found - No record found in database")
-    })
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieved"), @ApiResponse(code = 404, message = "Not found - No record found in database")})
     @PostMapping("/senior")
-    public ResponseEntity<String> addSeniorEmployee(@RequestBody SeniorEmployee seniorEmployee) {
-        seniorEmployeeService.addSeniorEmployee(seniorEmployee);
-        return new ResponseEntity<String>("Added Senior Employee", HttpStatus.CREATED);
+    public ResponseEntity<SeniorEmployee> addSeniorEmployee(@RequestBody SeniorEmployee seniorEmployee) {
+        SeniorEmployee seniorEmployee1 = seniorEmployeeService.addSeniorEmployee(seniorEmployee);
+        return new ResponseEntity<SeniorEmployee>(seniorEmployee1, HttpStatus.CREATED);
     }
 
 
     //UPDATE senior employee
     @ApiOperation(value = "Update a senior int database", notes = "Update a senior details in the database")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved"),
-            @ApiResponse(code = 404, message = "Not found - No record found in database")
-    })
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieved"), @ApiResponse(code = 404, message = "Not found - No record found in database")})
     @PutMapping("/senior/{seniorId}")
     public ResponseEntity<String> updateSeniorEmployeeById(@RequestBody SeniorEmployee seniorEmployee, @PathVariable int seniorId) {
         seniorEmployeeService.addSeniorEmployee(seniorEmployee);
@@ -78,25 +61,16 @@ public class SeniorEmployeeController {
 
     //DELETE senior employee
     @ApiOperation(value = "Delete a senior in database", notes = "Delete senior detail in the database")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved"),
-            @ApiResponse(code = 404, message = "Not found - No record found in database")
-    })
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieved"), @ApiResponse(code = 404, message = "Not found - No record found in database")})
     @DeleteMapping("/senior/{seniorId}")
-    public ResponseEntity<String> deleteSeniorEmployee(@ApiParam(
-            name = "ID",
-            type = "Integer",
-            value = "Senior employee ID",
-            example = "1",
-            required = true) @PathVariable int seniorId) {
+    public ResponseEntity<String> deleteSeniorEmployee(@PathVariable int seniorId) {
         seniorEmployeeService.deleteSeniorEmployeeById(seniorId);
         return new ResponseEntity<String>("DELETED", HttpStatus.OK);
     }
 
     @GetMapping("/senior/search/{location}")
-    public ResponseEntity<List<SeniorEmployee>> getSeniorByLocation(@PathVariable String location)
-    {
-        List<SeniorEmployee> seniorEmployeeList= seniorEmployeeService.getSeniorEmployeeByLocation(location);
+    public ResponseEntity<List<SeniorEmployee>> getSeniorByLocation(@PathVariable String location) {
+        List<SeniorEmployee> seniorEmployeeList = seniorEmployeeService.getSeniorEmployeeByLocation(location);
         return new ResponseEntity<List<SeniorEmployee>>(seniorEmployeeList, HttpStatus.OK);
     }
 }

@@ -11,3 +11,4 @@ public interface SeniorEmployeeRepository extends JpaRepository<SeniorEmployee, 
     @Query(value = "SELECT * from senior_employee WHERE location=?1", nativeQuery = true)
     public List<SeniorEmployee> getSeniorEmployeeByLocation(String location);
 }
+
